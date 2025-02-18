@@ -10,6 +10,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,7 +41,9 @@ val contacts = listOf(
 @Composable
 fun ContactRow(contacts: List<Contact>) {
     LazyRow(
-        modifier = Modifier.padding(start = 16.dp)
+        modifier = Modifier
+            .width(412.dp)
+            .height(72.dp).padding( start = 0.dp)
     ) {
         items(contacts.size) { index ->
             val contact = contacts[index]
@@ -49,17 +54,37 @@ fun ContactRow(contacts: List<Contact>) {
                     .width(64.dp)
                     .height(72.dp)
             ) {
-                Box(modifier = Modifier
-                    .width(52.dp)
-                    .height(48.dp).padding(2.dp)
-                    .clip(CircleShape)) {
+                Box(
+                    modifier = Modifier
+                        .width(52.dp)
+                        .height(48.dp)
+                        .padding(2.dp)
+                        .clip(CircleShape)
+                        .background(Color.LightGray)
+                ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_avatar),
                         contentDescription = "Avatar",
                         modifier = Modifier
-                            .size(48.dp).align(Alignment.Center)
-                            .background(Color.Yellow)
+                            .size(24.dp)
+                            .align(Alignment.Center)
                     )
+
+                    Box(
+                        modifier = Modifier
+                            .size(24.dp)
+                            .clip(CircleShape)
+                            .background(Color.White)
+                            .align(Alignment.BottomEnd)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = "Add",
+//                            modifier = Modifier.size(12.dp)
+                        )
+                    }
+
+
                 }
                 Text(text = contact.name, style = MaterialTheme.typography.bodyMedium)
             }
