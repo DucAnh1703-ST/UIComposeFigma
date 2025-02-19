@@ -1,5 +1,6 @@
 package com.example.uicomposefigma.custom
 
+import androidx.compose.foundation.background
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -11,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
@@ -30,7 +32,9 @@ fun MyNavigationBar() {
         NavBarItem(R.drawable.ic_tag, R.drawable.ic_tag, "Interests")
     )
 
-    NavigationBar {
+    NavigationBar(
+        modifier = Modifier.background(MaterialTheme.colorScheme.background)
+    ) {
         navigation.forEachIndexed { index, item ->
             NavigationBarItem(
                 selected = selectedIndex == index, // Kiểm tra xem item này có được chọn không

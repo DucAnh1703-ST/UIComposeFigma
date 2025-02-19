@@ -4,18 +4,15 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -41,7 +38,7 @@ val topics = listOf(
     Topic(R.drawable.ic_android_studio, "Android Studio"),
     Topic(R.drawable.ic_android_tv, "Android TV"),
     Topic(R.drawable.ic_architecture, "Architecture"),
-    Topic(R.drawable.ic_compose, "Compose")
+    Topic(R.drawable.ic_compose123, "Compose")
 )
 
 @Composable
@@ -63,17 +60,31 @@ fun TopicsGrid(topics: List<Topic>) {
                     .background(MaterialTheme.colorScheme.surface, RoundedCornerShape(8.dp)),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Image(
-                    painter = painterResource(id = topic.image),
-                    contentDescription = null,
-                    modifier = Modifier.size(32.dp),
-                    colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
+                Box(
+                    modifier = Modifier
+                        .padding(start = 12.dp) // Padding cho không gian bao quanh ảnh
+                        .size(32.dp) // Kích thước ảnh cố định
+                ) {
+                    Image(
+                        painter = painterResource(id = topic.image),
+                        contentDescription = null,
+                        modifier = Modifier.fillMaxSize(), // Ảnh sẽ chiếm toàn bộ Box
+                        colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
+                    )
+                }
+                Spacer(modifier = Modifier.width(12.dp))
+                Text(
+                    text = topic.name,
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(text = topic.name, style = MaterialTheme.typography.bodyMedium)
                 Spacer(modifier = Modifier.weight(1f))
                 IconButton(onClick = { /* TODO: Follow topic */ }) {
-                    Icon(Icons.Default.Add, contentDescription = "Follow", modifier = Modifier.size(18.dp))
+                    Icon(
+                        Icons.Default.Add,
+                        contentDescription = "Follow",
+                        modifier = Modifier.size(18.dp)
+                    )
                 }
             }
         }

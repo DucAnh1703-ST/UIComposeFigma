@@ -60,7 +60,7 @@ fun ContactRow(contacts: List<Contact>) {
                         .height(48.dp)
                         .padding(2.dp)
                         .clip(CircleShape)
-                        .background(Color.LightGray)
+                        .background(MaterialTheme.colorScheme.surfaceVariant)
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_avatar),
