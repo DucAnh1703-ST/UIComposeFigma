@@ -72,7 +72,7 @@ fun MyTopBar() {
             )
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer  // Đặt màu nền cho TopAppBar
+            containerColor = Color(0xFFFDEDF9)  // Đặt màu nền cho TopAppBar
         )
     )
 }

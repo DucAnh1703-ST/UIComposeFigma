@@ -35,7 +35,7 @@ fun HomeScreen(navController: NavHostController) {
             .fillMaxSize().background(gradientBrush),
         topBar = { MyTopBar() },
         content = { paddingValues ->
-            MyContent(Modifier.padding(paddingValues).fillMaxSize().background(MaterialTheme.colorScheme.primaryContainer))
+            MyContent(Modifier.padding(paddingValues).fillMaxSize().background(Color(0xFFFDEDF9)))
         },
         bottomBar = { MyNavigationBar() },
     )

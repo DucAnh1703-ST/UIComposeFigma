@@ -38,7 +38,7 @@ val topics = listOf(
     Topic(R.drawable.ic_android_studio, "Android Studio"),
     Topic(R.drawable.ic_android_tv, "Android TV"),
     Topic(R.drawable.ic_architecture, "Architecture"),
-    Topic(R.drawable.ic_compose123, "Compose")
+    Topic(R.drawable.ic_compose, "Compose")
 )
 
 @Composable
