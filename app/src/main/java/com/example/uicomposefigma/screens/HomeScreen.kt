@@ -2,6 +2,7 @@ package com.example.uicomposefigma.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -30,15 +31,24 @@ fun HomeScreen(navController: NavHostController) {
         end = Offset(0f, 3000f) // Vị trí kết thúc
     )
 
-    Scaffold(
+    Box(
         modifier = Modifier
-            .fillMaxSize().background(gradientBrush),
-        topBar = { MyTopBar() },
-        content = { paddingValues ->
-            MyContent(Modifier.padding(paddingValues).fillMaxSize().background(Color(0xFFFDEDF9)))
-        },
-        bottomBar = { MyNavigationBar() },
-    )
+            .fillMaxSize()
+            .background(gradientBrush)
+    ) {
+        Scaffold(
+            containerColor = Color.Transparent, // Đảm bảo Scaffold không vẽ nền riêng
+            topBar = { MyTopBar() },
+            content = { paddingValues ->
+                MyContent(
+                    Modifier
+                        .padding(paddingValues)
+                        .fillMaxSize()
+                )
+            },
+            bottomBar = { MyNavigationBar() },
+        )
+    }
 }
 
 @Preview(showBackground = true, device = Devices.PIXEL_7, showSystemUi = true)

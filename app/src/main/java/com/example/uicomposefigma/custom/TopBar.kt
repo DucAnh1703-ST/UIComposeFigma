@@ -72,7 +72,8 @@ fun MyTopBar() {
             )
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Color(0xFFFDEDF9)  // Đặt màu nền cho TopAppBar
+//            containerColor = Color(0xFFFDEDF9)  // Đặt màu nền cho TopAppBar
+            containerColor = Color.Transparent
         )
     )
 }

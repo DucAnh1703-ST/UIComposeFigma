@@ -2,6 +2,8 @@ package com.example.uicomposefigma.custom
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -13,6 +15,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -21,8 +24,14 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
@@ -42,7 +51,11 @@ val topics = listOf(
 )
 
 @Composable
-fun TopicsGrid(topics: List<Topic>) {
+fun TopicsGrid(
+    topics: List<Topic>,
+    followedTopics: List<Topic>,
+    onFollowChanged: (Topic, Boolean) -> Unit
+) {
     LazyHorizontalGrid(
         rows = GridCells.Fixed(3), // Hiển thị 2 cột
         modifier = Modifier
@@ -53,6 +66,8 @@ fun TopicsGrid(topics: List<Topic>) {
     ) {
         items(topics.size) { index ->
             val topic = topics[index]
+            // Xác định trạng thái follow của topic dựa vào danh sách follow từ cha
+            val isFollowed = followedTopics.contains(topic)
             Row(
                 modifier = Modifier
                     .width(264.dp)
@@ -79,22 +94,51 @@ fun TopicsGrid(topics: List<Topic>) {
                     color = MaterialTheme.colorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                IconButton(onClick = { /* TODO: Follow topic */ }) {
-                    Icon(
-                        Icons.Default.Add,
-                        contentDescription = "Follow",
-                        modifier = Modifier.size(18.dp)
-                    )
-                }
+                TinyToggleIcon(
+                    isFollowed = isFollowed,
+                    onClick = {
+                        // Khi nhấn, chuyển trạng thái: nếu hiện tại đang follow thì unfollow, ngược lại follow
+                        onFollowChanged(topic, !isFollowed)
+                    },
+                )
             }
         }
     }
 }
 
-@Preview(showBackground = true, device = Devices.PIXEL_7, showSystemUi = true)
 @Composable
-private fun TopicsGridPreview() {
-    UIComposeFigmaTheme {
-        TopicsGrid(topics)
+fun TinyToggleIcon(
+    isFollowed: Boolean,
+    onClick: () -> Unit
+) {
+    Box(
+        modifier = Modifier
+            .size(24.dp)               // Kích thước vòng tròn 24.dp
+            .clip(CircleShape)         // Cắt bo tròn
+            .background(
+                color = if (isFollowed) Color.Magenta else Color.Transparent
+            )
+            .clickable { onClick() }   // Xử lý nhấn
+    ) {
+        Icon(
+            painter = painterResource(
+                id = if (isFollowed) R.drawable.ic_icon_true else R.drawable.ic_add
+            ),
+            contentDescription = null,
+            tint = Color.Black,
+            modifier = Modifier
+                .size(18.dp)
+                .align(Alignment.Center) // Căn icon vào giữa
+        )
     }
+
+    Spacer(modifier = Modifier.width(9.dp)) // Tạo khoảng cách 9dp
 }
+
+//@Preview(showBackground = true, device = Devices.PIXEL_7, showSystemUi = true)
+//@Composable
+//private fun TopicsGridPreview() {
+//    UIComposeFigmaTheme {
+//        TopicsGrid(topics)
+//    }
+//}
