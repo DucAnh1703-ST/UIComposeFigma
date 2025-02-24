@@ -1,6 +1,7 @@
 package com.example.uicomposefigma.custom
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -17,6 +18,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.sp
 import com.example.uicomposefigma.R
 import com.example.uicomposefigma.data.NavBarItem
 import com.example.uicomposefigma.ui.theme.UIComposeFigmaTheme
@@ -42,13 +44,21 @@ fun MyNavigationBar() {
                 icon = {
                     Icon(
                         painter = painterResource(id = if (selectedIndex == index) item.iconSelected else item.icon),
-                        contentDescription = item.title
+                        contentDescription = item.title,
+                        tint = getIconColor() // Set màu theo chế độ sáng/tối
                     )
                 },
-                label = { Text(item.title) },
+                label = {
+                    Text(
+                        text = item.title,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        style = MaterialTheme.typography.labelMedium,
+                        fontSize = 12.sp
+                    )
+                },
                 colors = NavigationBarItemColors(
                     selectedIconColor = Color.Unspecified,
-                    selectedTextColor = Color.Unspecified,
+                    selectedTextColor = MaterialTheme.colorScheme.onPrimaryContainer,
                     selectedIndicatorColor = MaterialTheme.colorScheme.primaryContainer,
                     unselectedIconColor = Color.Unspecified,
                     unselectedTextColor = Color.Unspecified,
@@ -57,6 +67,15 @@ fun MyNavigationBar() {
                 )
             )
         }
+    }
+}
+
+@Composable
+fun getIconColor(): Color {
+    return if (isSystemInDarkTheme()) {
+        MaterialTheme.colorScheme.onSurfaceVariant // Màu icon khi ở Dark Mode
+    } else {
+        MaterialTheme.colorScheme.onSurface // Màu icon khi ở Light Mode
     }
 }
 

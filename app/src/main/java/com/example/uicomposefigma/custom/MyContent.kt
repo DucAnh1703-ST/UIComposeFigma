@@ -51,16 +51,20 @@ fun MyContent(modifier: Modifier = Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                "What are you interested in?",
+                text = "What are you interested in?",
                 style = MaterialTheme.typography.titleMedium.copy(textAlign = TextAlign.Center),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                color = MaterialTheme.colorScheme.onSurface,
+                fontSize = 16.sp
             )
 
             Spacer(modifier = Modifier.height(24.dp))
 
             Text(
-                "Updates from interests you follow will appear here. Follow some things to get started.",
-                style = MaterialTheme.typography.bodyMedium.copy(textAlign = TextAlign.Center)
+                text = "Updates from interests you follow will appear here. Follow some things to get started.",
+                style = MaterialTheme.typography.bodyMedium.copy(textAlign = TextAlign.Center),
+                color = MaterialTheme.colorScheme.onSurface,
+                fontSize = 14.sp
             )
         }
 
@@ -94,7 +98,12 @@ fun MyContent(modifier: Modifier = Modifier) {
                 .width(380.dp)
                 .height(40.dp)
         ) {
-            Text("Done")
+            Text(
+                text = "Done",
+                color = MaterialTheme.colorScheme.onSurface,
+                style = MaterialTheme.typography.labelLarge,
+                fontSize = 14.sp
+            )
         }
 
         Spacer(modifier = Modifier.height(24.dp))
@@ -110,7 +119,8 @@ fun MyContent(modifier: Modifier = Modifier) {
                 text = "Browse topics",
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.labelSmall
+                style = MaterialTheme.typography.labelSmall,
+                color = MaterialTheme.colorScheme.onSurface
             )
         }
 

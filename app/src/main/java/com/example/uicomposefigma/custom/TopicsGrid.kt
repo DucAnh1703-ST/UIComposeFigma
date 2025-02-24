@@ -37,6 +37,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.uicomposefigma.R
 import com.example.uicomposefigma.data.Topic
 import com.example.uicomposefigma.ui.theme.UIComposeFigmaTheme
@@ -91,7 +92,8 @@ fun TopicsGrid(
                 Text(
                     text = topic.name,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontSize = 14.sp
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 TinyToggleIcon(

@@ -22,22 +22,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.uicomposefigma.R
 import com.example.uicomposefigma.ui.theme.UIComposeFigmaTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyTopBar() {
-    val gradientBrush = Brush.linearGradient(
-        colors = listOf(Color(0xFFFAEEEF), Color(0xFFFFD6FA)),
-        start = Offset(2000f, 0f),  // Vị trí bắt đầu
-        end = Offset(0f, 3000f) // Vị trí kết thúc
-    )
-
     TopAppBar(
         modifier = Modifier
-            .fillMaxWidth()
-            ,
+            .fillMaxWidth(),
         title = {
             Box(
                 modifier = Modifier
@@ -46,7 +40,13 @@ fun MyTopBar() {
                 contentAlignment = Alignment.Center,
 
                 ) {
-                Text("Now in Android", fontWeight = FontWeight.Bold)
+                Text(
+                    text = "Now in Android",
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontSize = 22.sp,
+                    style = MaterialTheme.typography.titleLarge,
+                )
             }
         },
         navigationIcon = {

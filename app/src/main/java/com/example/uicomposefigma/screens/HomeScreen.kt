@@ -26,7 +26,7 @@ import com.example.uicomposefigma.ui.theme.UIComposeFigmaTheme
 fun HomeScreen(navController: NavHostController) {
     // Tạo Brush.linearGradient với 2 màu và vị trí start, end
     val gradientBrush = Brush.linearGradient(
-        colors = listOf(Color(0xFFFAEEEF), Color(0xFFFFD6FA)),
+        colors = listOf(MaterialTheme.colorScheme.inverseOnSurface, MaterialTheme.colorScheme.primaryContainer),
         start = Offset(2000f, 0f),  // Vị trí bắt đầu
         end = Offset(0f, 3000f) // Vị trí kết thúc
     )
