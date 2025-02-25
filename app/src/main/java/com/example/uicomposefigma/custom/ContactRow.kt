@@ -75,12 +75,13 @@ fun ContactRow(contacts: List<Contact>) {
                         modifier = Modifier
                             .size(24.dp)
                             .clip(CircleShape)
-                            .background(Color.White)
+                            .background(MaterialTheme.colorScheme.surface)
                             .align(Alignment.BottomEnd)
                     ) {
                         Icon(
                             imageVector = Icons.Default.Add,
                             contentDescription = "Add",
+                            tint = MaterialTheme.colorScheme.onBackground
 //                            modifier = Modifier.size(12.dp)
                         )
                     }

@@ -2,6 +2,7 @@ package com.example.uicomposefigma.custom
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -51,9 +53,9 @@ import com.example.uicomposefigma.ui.theme.UIComposeFigmaTheme
 
 // Danh sách tiêu đề cho các button
 val buttonLabels = listOf("Topic", "Compose", "Events", "Performance", "Topic1")
-
 @Composable
 fun CustomCard() {
+    val darkTheme: Boolean = isSystemInDarkTheme()
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -62,11 +64,11 @@ fun CustomCard() {
     ) {
         Card(
             modifier = Modifier
-                .width(380.dp)
+                .padding(end = 16.dp)
                 .height(494.dp),
             shape = RoundedCornerShape(16.dp),
             colors = CardDefaults.cardColors(
-                containerColor = Color(0xFFFFFFFF)
+                containerColor = MaterialTheme.colorScheme.background
             ), // Đổi màu nền của Card
         ) {
             Row(
@@ -107,7 +109,7 @@ fun CustomCard() {
                         modifier = Modifier
                             .size(24.dp)
                             .clip(CircleShape)
-                            .background(Color.Blue)
+                            .background(MaterialTheme.colorScheme.surfaceVariant)
                     )
 
                     // Khoảng cách giữa hình tròn và chữ
@@ -117,7 +119,8 @@ fun CustomCard() {
                         text = "Author",
                         style = MaterialTheme.typography.labelSmall,
                         fontSize = 11.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 }
 
@@ -137,6 +140,7 @@ fun CustomCard() {
                             .height(64.dp),
                         fontSize = (24.sp),
                         style = MaterialTheme.typography.headlineSmall,
+                        color = MaterialTheme.colorScheme.onBackground
                     )
 
                     Box(
@@ -147,7 +151,7 @@ fun CustomCard() {
                             onClick = { /* Xử lý khi nhấn */ },
                             shape = CircleShape,
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = Color.Magenta,
+                                containerColor = MaterialTheme.colorScheme.primaryContainer,
                                 contentColor = Color.White
                             ),
                             modifier = Modifier.fillMaxSize() // Nút sẽ phủ toàn bộ Box
@@ -159,7 +163,7 @@ fun CustomCard() {
                             modifier = Modifier
                                 .align(Alignment.Center) // Căn giữa Icon
                                 .size(18.dp),
-                            tint = Color.Unspecified // Giữ nguyên màu gốc của icon
+                            tint = MaterialTheme.colorScheme.onPrimaryContainer // Giữ nguyên màu gốc của icon
                         )
                     }
                 }
@@ -177,7 +181,7 @@ fun CustomCard() {
                         modifier = Modifier
                             .size(8.dp)
                             .clip(CircleShape)
-                            .background(Color.Red) // Màu tuỳ chỉnh
+                            .background(MaterialTheme.colorScheme.primary) // Màu tuỳ chỉnh
                     )
 
                     Spacer(modifier = Modifier.width(8.dp))
@@ -185,16 +189,17 @@ fun CustomCard() {
                     // Ô thứ nhất
                     Box(
                         modifier = Modifier
-                            .width(87.dp)
+                            .wrapContentWidth()
                             .fillMaxHeight(),    // Cao bằng Row
 //                    contentAlignment = Alignment.Center // Căn giữa cả chiều ngang & dọc
                     ) {
                         Text(
                             text = "January 1, 2021",
-                            fontSize = 10.sp,
+                            fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
                             style = MaterialTheme.typography.labelSmall.copy(textAlign = TextAlign.Center),
-                            modifier = Modifier.fillMaxSize()
+                            modifier = Modifier.wrapContentSize(),
+                            color = MaterialTheme.colorScheme.onBackground
                         )
                     }
 
@@ -203,16 +208,17 @@ fun CustomCard() {
                     // Ô thứ nhất
                     Box(
                         modifier = Modifier
-                            .width(124.dp)
+                            .wrapContentWidth()
                             .fillMaxHeight(),    // Cao bằng Row
                         contentAlignment = Alignment.Center // Căn giữa cả chiều ngang & dọc
                     ) {
                         Text(
                             text = "developer.android.com",
-                            fontSize = 10.sp,
+                            fontSize = 11.sp,
                             fontWeight = FontWeight.Bold,
                             style = MaterialTheme.typography.labelSmall.copy(textAlign = TextAlign.Center),
-                            modifier = Modifier.fillMaxSize()
+                            modifier = Modifier.wrapContentSize(),
+                            color = MaterialTheme.colorScheme.onBackground
                         )
                     }
                 }
@@ -228,7 +234,8 @@ fun CustomCard() {
                         text = "In this codelab, you can learn how Wear " +
                                 "OS can work with Compose, " +
                                 "what Wear OS specific composables are available, and more!",
-                        fontSize = 16.sp
+                        fontSize = 16.sp,
+                        color = MaterialTheme.colorScheme.onBackground
                     )
                 }
 
@@ -270,8 +277,8 @@ fun CustomCard() {
                                 shape = RoundedCornerShape(50), // Bo tròn 2 đầu, tạo dạng pill
                                 contentPadding = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
                                 colors = ButtonDefaults.buttonColors(
-                                    containerColor = containerColor, // Màu nền
-                                    contentColor = Color.Black       // Màu chữ
+                                    containerColor = if(isSystemInDarkTheme())MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.onSurfaceVariant, // Màu nền
+                                    contentColor = if(isSystemInDarkTheme())MaterialTheme.colorScheme.onSurfaceVariant else MaterialTheme.colorScheme.surfaceVariant       // Màu chữ
                                 ),
                                 modifier = Modifier.height(32.dp)
                             ) {
@@ -279,7 +286,8 @@ fun CustomCard() {
                                     text = label,
                                     fontSize = 11.sp,
                                     fontWeight = FontWeight.Bold,
-                                    style = MaterialTheme.typography.labelSmall
+                                    style = MaterialTheme.typography.labelSmall,
+//                                    color = MaterialTheme.colorScheme.onSurfaceVariant
                                 )
                             }
                         }
@@ -294,7 +302,7 @@ fun CustomCard() {
                         Button(
                             onClick = { /* Xử lý khi nhấn */ },
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = Color.White,
+                                containerColor = MaterialTheme.colorScheme.background,
                                 contentColor = Color.White
                             ),
                             shape = RectangleShape, // Đặt hình dạng là hình chữ nhật
@@ -307,7 +315,7 @@ fun CustomCard() {
                             modifier = Modifier
                                 .align(Alignment.Center) // Căn giữa Icon
                                 .size(18.dp),
-                            tint = Color.Unspecified // Giữ nguyên màu gốc của icon
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant // Giữ nguyên màu gốc của icon
                         )
                     }
                 }

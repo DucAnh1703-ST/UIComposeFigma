@@ -66,7 +66,7 @@ fun TopicsGrid(
         horizontalArrangement = Arrangement.spacedBy(8.dp) // Khoảng cách giữa các cột
     ) {
         items(topics.size) { index ->
-            val topic = topics[index]
+            val     topic = topics[index]
             // Xác định trạng thái follow của topic dựa vào danh sách follow từ cha
             val isFollowed = followedTopics.contains(topic)
             Row(
@@ -102,6 +102,8 @@ fun TopicsGrid(
                         // Khi nhấn, chuyển trạng thái: nếu hiện tại đang follow thì unfollow, ngược lại follow
                         onFollowChanged(topic, !isFollowed)
                     },
+
+
                 )
             }
         }
@@ -118,7 +120,7 @@ fun TinyToggleIcon(
             .size(24.dp)               // Kích thước vòng tròn 24.dp
             .clip(CircleShape)         // Cắt bo tròn
             .background(
-                color = if (isFollowed) Color.Magenta else Color.Transparent
+                color = if (isFollowed) MaterialTheme.colorScheme.primaryContainer else Color.Transparent
             )
             .clickable { onClick() }   // Xử lý nhấn
     ) {
@@ -127,10 +129,11 @@ fun TinyToggleIcon(
                 id = if (isFollowed) R.drawable.ic_icon_true else R.drawable.ic_add
             ),
             contentDescription = null,
-            tint = Color.Black,
+            tint = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier
                 .size(18.dp)
-                .align(Alignment.Center) // Căn icon vào giữa
+                .align(Alignment.Center), // Căn icon vào giữa
+
         )
     }
 
