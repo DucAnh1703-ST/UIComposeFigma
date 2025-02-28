@@ -19,13 +19,16 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.uicomposefigma.R
 import com.example.uicomposefigma.data.NavBarItem
 import com.example.uicomposefigma.ui.theme.UIComposeFigmaTheme
 
 @Composable
-fun MyNavigationBar() {
-    var selectedIndex by remember { mutableIntStateOf(0) } // Quản lý index của item đang được chọn
+fun MyNavigationBar(navController: NavHostController) {
+    // Lấy route hiện tại từ NavController
+    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
 
     val navigation = listOf(
         NavBarItem(R.drawable.ic_upcoming_border, R.drawable.ic_icon_upcoming, "For you"),
@@ -38,12 +41,29 @@ fun MyNavigationBar() {
         modifier = Modifier.background(MaterialTheme.colorScheme.background)
     ) {
         navigation.forEachIndexed { index, item ->
+            // Cập nhật trạng thái selectedIndex dựa trên route hiện tại
+            val isSelected = currentRoute == when (index) {
+                0 -> "home" // Màn hình "For you"
+                1 -> "episodes" // Màn hình "Episodes"
+                2 -> "saved" // Màn hình "Saved"
+                3 -> "interests" // Màn hình "Interests"
+                else -> ""
+            }
+
             NavigationBarItem(
-                selected = selectedIndex == index, // Kiểm tra xem item này có được chọn không
-                onClick = { selectedIndex = index }, // Cập nhật index khi người dùng click vào item
+                selected = isSelected, // Kiểm tra xem route hiện tại có phải màn hình này không
+                onClick = {
+                    // Điều hướng đến màn hình tương ứng khi click vào item
+                    when (index) {
+                        0 -> navController.navigate("home")
+                        1 -> navController.navigate("episodes")
+                        2 -> navController.navigate("saved")
+                        3 -> navController.navigate("interests")
+                    }
+                },
                 icon = {
                     Icon(
-                        painter = painterResource(id = if (selectedIndex == index) item.iconSelected else item.icon),
+                        painter = painterResource(id = if (isSelected) item.iconSelected else item.icon),
                         contentDescription = item.title,
                         tint = getIconColor() // Set màu theo chế độ sáng/tối
                     )
@@ -70,6 +90,7 @@ fun MyNavigationBar() {
     }
 }
 
+
 @Composable
 fun getIconColor(): Color {
     return if (isSystemInDarkTheme()) {
@@ -79,10 +100,10 @@ fun getIconColor(): Color {
     }
 }
 
-@Preview(showBackground = true, device = Devices.PIXEL_7, showSystemUi = true)
-@Composable
-private fun MyNavigationBarPreview() {
-    UIComposeFigmaTheme {
-        MyNavigationBar()
-    }
-}
+//@Preview(showBackground = true, device = Devices.PIXEL_7, showSystemUi = true)
+//@Composable
+//private fun MyNavigationBarPreview() {
+//    UIComposeFigmaTheme {
+//        MyNavigationBar()
+//    }
+//}

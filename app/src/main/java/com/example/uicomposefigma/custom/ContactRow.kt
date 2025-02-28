@@ -55,39 +55,38 @@ fun ContactRow(contacts: List<Contact>) {
                     .width(64.dp)
                     .height(72.dp)
             ) {
-                Box(
-                    modifier = Modifier
-                        .width(52.dp)
-                        .height(48.dp)
-                        .padding(2.dp)
-                        .clip(CircleShape)
-                        .background(MaterialTheme.colorScheme.surfaceVariant)
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_avatar),
-                        contentDescription = "Avatar",
-                        modifier = Modifier
-                            .size(24.dp)
-                            .align(Alignment.Center)
-                    )
 
+                Box(
+                    modifier = Modifier,
+                    contentAlignment = Alignment.BottomEnd
+                ) {
                     Box(
                         modifier = Modifier
-                            .size(24.dp)
+                            .width(52.dp)
+                            .height(48.dp)
+                            .padding(2.dp)
                             .clip(CircleShape)
-                            .background(MaterialTheme.colorScheme.surface)
-                            .align(Alignment.BottomEnd)
+                            .background(MaterialTheme.colorScheme.surfaceVariant),
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Add,
-                            contentDescription = "Add",
-                            tint = MaterialTheme.colorScheme.onBackground
-//                            modifier = Modifier.size(12.dp)
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_avatar),
+                            contentDescription = "Avatar",
+                            modifier = Modifier
+                                .size(24.dp)
+                                .align(Alignment.Center)
                         )
                     }
 
-
+                    Icon(
+                        imageVector = Icons.Default.Add,
+                        contentDescription = "Add",
+                        tint = MaterialTheme.colorScheme.onBackground,
+//                            modifier = Modifier.size(12.dp)
+                        modifier = Modifier.background(MaterialTheme.colorScheme.surface,CircleShape).clip(
+                            CircleShape)
+                    )
                 }
+                
                 Text(
                     text = contact.name,
                     style = MaterialTheme.typography.bodySmall,
